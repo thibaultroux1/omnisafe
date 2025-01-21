@@ -541,7 +541,7 @@ class Evaluator:  # pylint: disable=too-many-instance-attributes
         frames = []
         obs, _ = self._env.reset()
         if self._render_mode == 'human':
-            self._env.render()
+            pass
         elif self._render_mode == 'rgb_array':
             frames.append(self._env.render())
 
@@ -557,6 +557,7 @@ class Evaluator:  # pylint: disable=too-many-instance-attributes
             while (
                 not done and step <= max_render_steps
             ):  # a big number to make sure the episode will end
+                self._env.render()
                 if 'Saute' in self._cfgs['algo'] or 'Simmer' in self._cfgs['algo']:
                     obs = torch.cat([obs, self._safety_obs], dim=-1)
                 with torch.no_grad():
@@ -600,7 +601,7 @@ class Evaluator:  # pylint: disable=too-many-instance-attributes
 
             if self._render_mode == 'rgb_array_list':
                 frames = self._env.render()
-            if save_replay_path is not None:
+            if None is not None:
                 save_video(
                     frames,
                     save_replay_path,

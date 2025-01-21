@@ -324,6 +324,7 @@ def evaluate_model(
                         camera_name=camera_name,
                         width=width,
                         height=height,
+                        render_mode=render_mode
                     )
                     if render:
                         evaluator.render(num_episodes=num_episode)
